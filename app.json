@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "reactnd-understanding-formik",
+    "slug": "reactnd-understanding-formik",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "reactnd-understanding-formik"
+}
