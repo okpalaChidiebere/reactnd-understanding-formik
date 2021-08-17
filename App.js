@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TextInput } from 'react-native';
 import { Formik } from 'formik'
 
 export default function App() {
@@ -12,12 +12,22 @@ export default function App() {
   const handleSubmit = (values) => {}
 
   return (
-    <Formik initialValues={{}} onSubmit={handleSubmit}>
-      {() => {
+    <Formik 
+      initialValues={{ 
+        firstName: "",
+      }} 
+      onSubmit={handleSubmit}
+    >
+      {({ values, handleChange }) => {
           return (
             <View style={styles.container}>
-              <Text>Open up App.js to start working on your app!</Text>
               <StatusBar style="auto" />
+              <TextInput
+                value={values.firstName}
+                style={styles.inputStyle}
+                onChangeText={handleChange('firstName')}
+                placeholder="FirstName"
+              />
             </View>
           )
       }}
@@ -29,7 +39,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding: 50,
+    //alignItems: 'center',
+    //justifyContent: 'center',
   },
+  inputStyle: {
+    borderWidth: 1,
+    borderColor: '#4e4e4e',
+    padding: 12,
+    marginBottom: 5,
+  }
 });
