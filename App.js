@@ -17,7 +17,7 @@ const MySpecialField = () => {
    * You have access to all the meta fields to display errors, and do 
    * whatever you need to for your custom components.
    */
-  const [meta, helpers] = useField("firstName")
+  const [field, meta, helpers] = useField("firstName")
 
   return (
     <TextInput
