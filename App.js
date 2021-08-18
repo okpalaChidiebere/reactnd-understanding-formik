@@ -2,10 +2,16 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import { Formik } from 'formik'
+import * as yup from 'yup'
 import CheckBox from "@react-native-community/checkbox"
 import { RadioButton } from "react-native-paper"
 
 export default function App() {
+
+  const NameValidation = yup.object().shape({
+    //We describe the shape of our data using the keys that map to the keys on our values
+    firstName: yup.string().required("Required"), //specify that firstName is a string() and that it is required()
+  })
   /**
    * This can either be synchronous or asynchronous. We won't focus on the onSubmit
    * handler but in general it is most likely going to be asynchronous as you submit
@@ -27,7 +33,7 @@ export default function App() {
        * Form requirements can range from very simple, to very complex. 
        * We use this validate method to handle the basic form
        */
-      validate={(values) => {
+      /*validate={(values) => {
         let errors = {}
 
         //we check if firstName is empty and if it is we set an error message
@@ -35,7 +41,8 @@ export default function App() {
           errors.firstName = "Required"
         }
         return errors
-      }}
+      }}*/
+      validationSchema={NameValidation}
     >
       {({ values, errors, setFieldValue, handleChange, handleSubmit }) => {
           return (
