@@ -23,8 +23,21 @@ export default function App() {
         color: "",
       }} 
       onSubmit={handleSubmit}
+      /**
+       * Form requirements can range from very simple, to very complex. 
+       * We use this validate method to handle the basic form
+       */
+      validate={(values) => {
+        let errors = {}
+
+        //we check if firstName is empty and if it is we set an error message
+        if (!values.firstName) {
+          errors.firstName = "Required"
+        }
+        return errors
+      }}
     >
-      {({ values, setFieldValue, handleChange, handleSubmit }) => {
+      {({ values, errors, setFieldValue, handleChange, handleSubmit }) => {
           return (
             <View style={styles.container}>
               <StatusBar style="auto" />
@@ -34,6 +47,9 @@ export default function App() {
                 onChangeText={handleChange('firstName')}
                 placeholder="FirstName"
               />
+              {errors.firstName &&
+              <Text style={{ fontSize: 12, color: '#FF0D10' }}>{errors.firstName}</Text>
+              }  
               <View style={styles.section}>
                 <Text style={styles.paragraph}>Custom colored checkbox</Text>
                 <CheckBox
