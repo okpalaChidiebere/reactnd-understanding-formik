@@ -1,10 +1,37 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
-import { Formik } from 'formik'
+import { Formik, useField } from 'formik'
 import * as yup from 'yup'
 import CheckBox from "@react-native-community/checkbox"
 import { RadioButton } from "react-native-paper"
+
+const MySpecialField = () => {
+  /**
+   * Formik doesn't work with just normal form fields, you can build and 
+   * interpret any value that you've stored on the values. Everything is 
+   * stored in memory so when developing custom fields you can do anything 
+   * you want.
+   * 
+   * From here you can take your component in any direction you want. 
+   * You have access to all the meta fields to display errors, and do 
+   * whatever you need to for your custom components.
+   */
+  const [meta, helpers] = useField("firstName")
+
+  return (
+    <TextInput
+      value={meta.value}
+      style={[
+        styles.inputStyle, 
+        { borderColor: meta.touched && meta.error ? "#FF0D10" : "black" }
+      ]}
+      onBlur={() => helpers.setTouched(true)}
+      onChangeText={text => helpers.setValue(text)}
+      placeholder="FirstName"
+    />
+  )
+}
 
 export default function App() {
 
@@ -48,12 +75,7 @@ export default function App() {
           return (
             <View style={styles.container}>
               <StatusBar style="auto" />
-              <TextInput
-                value={values.firstName}
-                style={styles.inputStyle}
-                onChangeText={handleChange('firstName')}
-                placeholder="FirstName"
-              />
+              <MySpecialField />
               {errors.firstName &&
               <Text style={{ fontSize: 12, color: '#FF0D10' }}>{errors.firstName}</Text>
               }  
@@ -67,7 +89,6 @@ export default function App() {
                   onTintColor="#4630EB"
                   onFillColor="#4630EB"
                   onCheckColor="#ffff"
-                  //color={values.acceptTerms ? '#4630EB' : undefined}
                 />
               </View>
               <View>
