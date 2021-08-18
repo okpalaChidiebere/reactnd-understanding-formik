@@ -3,6 +3,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import { Formik } from 'formik'
 import CheckBox from "@react-native-community/checkbox"
+import { RadioButton } from "react-native-paper"
 
 export default function App() {
   /**
@@ -19,6 +20,7 @@ export default function App() {
       initialValues={{ 
         firstName: "",
         acceptTerms: true,
+        color: "",
       }} 
       onSubmit={handleSubmit}
     >
@@ -44,6 +46,37 @@ export default function App() {
                   onCheckColor="#ffff"
                   //color={values.acceptTerms ? '#4630EB' : undefined}
                 />
+              </View>
+              <View>
+                <RadioButton.Group
+                  onValueChange={v => setFieldValue('color', v)}
+                  value={values?.color}
+                >
+                  <View style={styles.section}>
+                    <Text>First</Text>
+                    <RadioButton
+                      value="blue"
+                      color="#4630EB"
+                      uncheckedColor="black" /**only works in android :( */
+                      status={ values?.color === 'blue' ? 'checked' : 'unchecked' }
+                      onPress={() => setFieldValue('color', 'blue')}
+                    />
+                  </View>
+                  <View style={styles.section}>
+                    <Text>Red</Text>
+                    <RadioButton
+                      value="red"
+                      onPress={() => setFieldValue('color', 'red')}
+                    />
+                  </View>
+                  <View style={styles.section}>
+                  <Text>Green</Text>
+                    <RadioButton
+                      value="green"
+                      onPress={() => setFieldValue('color', 'green')}
+                    />
+                  </View>
+                </RadioButton.Group>
               </View>
               <Button
                 color="#4630EB"
